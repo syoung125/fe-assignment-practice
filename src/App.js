@@ -19,6 +19,15 @@ class App {
             this.setLoading(false);
           });
       },
+      onRandom: () => {
+        this.setLoading(true);
+        api
+          .fetchRandomCats()
+          .then(({ data }) => this.setState(data))
+          .finally(() => {
+            this.setLoading(false);
+          });
+      },
     });
 
     this.searchResult = new SearchResult({

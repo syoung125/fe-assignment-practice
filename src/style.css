@@ -45,6 +45,11 @@
     width: 100%;
   }
   
+  .searchInputWrapper {
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+  }
   .SearchInput {
     width: 100%;
     font-size: 40px;
