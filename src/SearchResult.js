@@ -35,6 +35,7 @@ class SearchResult {
             (cat) => `
             <div class="item">
               <img src=${cat.url} alt=${cat.name} />
+              <div class="overlay">${cat.name}</div>
             </div>
           `
           )
@@ -43,6 +44,13 @@ class SearchResult {
     this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
       $item.addEventListener("click", () => {
         this.onClick(this.data[index]);
+      });
+      const $overlay = $item.querySelector(".overlay");
+      $item.addEventListener("mouseenter", () => {
+        $overlay.style.visibility = "visible";
+      });
+      $item.addEventListener("mouseleave", () => {
+        $overlay.style.visibility = "hidden";
       });
     });
   }
