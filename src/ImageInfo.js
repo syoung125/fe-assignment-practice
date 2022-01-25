@@ -41,17 +41,17 @@ class ImageInfo {
       const { name, url, temperament, origin } = this.data.image;
 
       this.$imageInfo.innerHTML = `
-          <div class="content-wrapper">
+          <article class="content-wrapper">
             <div class="title">
-              <span>${name}</span>
-              <div class="close">x</div>
+              <h1>${name}</h1>
+              <button class="close">x</button>
             </div>
             <img src="${url}" alt="${name}"/>        
-            <div class="description">
-              <div>성격: ${temperament}</div>
-              <div>태생: ${origin}</div>
-            </div>
-          </div>`;
+            <ul class="description">
+              <li>성격: ${temperament}</li>
+              <li>태생: ${origin}</li>
+            </ul>
+          </article>`;
       this.$imageInfo.style.display = "block";
 
       const $closeBtn = document.querySelector(".close");

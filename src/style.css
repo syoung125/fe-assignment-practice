@@ -68,6 +68,14 @@ body * {
 .ImageInfo .title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.ImageInfo .title h1 {
+  margin: 0;
+}
+.ImageInfo .title .close {
+  border: 0;
+  background-color: transparent;
 }
 
 .ImageInfo .title,
