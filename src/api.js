@@ -1,13 +1,26 @@
 const API_ENDPOINT =
   "https://oivhcpn8r9.execute-api.ap-northeast-2.amazonaws.com/dev";
 
+const request = async (url) => {
+  try {
+    const res = await fetch(url);
+    if (res.status === 400) {
+      throw Error("400 Bad Request");
+    }
+    if (res.status === 500) {
+      throw Error("500 Internal Server Error ");
+    }
+    return res.json();
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const api = {
-  fetchCats: (keyword) => {
-    return fetch(`${API_ENDPOINT}/api/cats/search?q=${keyword}`).then((res) =>
-      res.json()
-    );
+  fetchCats: async (keyword) => {
+    return await request(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
   },
-  fetchRandomCats: () => {
-    return fetch(`${API_ENDPOINT}/api/cats/random50`).then((res) => res.json());
+  fetchRandomCats: async () => {
+    return await request(`${API_ENDPOINT}/api/cats/random50`);
   },
 };

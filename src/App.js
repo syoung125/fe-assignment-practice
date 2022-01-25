@@ -10,23 +10,21 @@ class App {
 
     this.searchInput = new SearchInput({
       $target,
-      onSearch: (keyword) => {
+      onSearch: async (keyword) => {
         this.setLoading(true);
-        api
-          .fetchCats(keyword)
-          .then(({ data }) => this.setState(data))
-          .finally(() => {
-            this.setLoading(false);
-          });
+        try {
+          const res = await api.fetchCats(keyword);
+          this.setState(res.data);
+        } catch (error) {}
+        this.setLoading(false);
       },
-      onRandom: () => {
+      onRandom: async () => {
         this.setLoading(true);
-        api
-          .fetchRandomCats()
-          .then(({ data }) => this.setState(data))
-          .finally(() => {
-            this.setLoading(false);
-          });
+        try {
+          const res = await api.fetchRandomCats();
+          this.setState(res.data);
+        } catch (error) {}
+        this.setLoading(false);
       },
     });
 
