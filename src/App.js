@@ -30,8 +30,8 @@ class App {
     this.searchResult = new SearchResult({
       $target,
       initialData: this.data,
-      onClick: async (image) => {
-        const res = await api.fetchCat(image.id);
+      onClick: async (id) => {
+        const res = await api.fetchCat(id);
         this.imageInfo.setState({
           visible: true,
           image: res.data,

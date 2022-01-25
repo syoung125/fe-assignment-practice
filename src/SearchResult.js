@@ -12,6 +12,14 @@ class SearchResult {
     this.data = initialData;
     this.onClick = onClick;
 
+    this.$searchResult.addEventListener("click", (e) => {
+      const $item = e.path.find((v) => v.className === "item");
+      if ($item) {
+        const itemId = $item.id.split("_")[1];
+        this.onClick(itemId);
+      }
+    });
+
     this.render();
   }
 
@@ -33,7 +41,7 @@ class SearchResult {
       : this.data
           .map(
             (cat) => `
-            <div class="item">
+            <div class="item" id="item_${cat.id}">
               <img src=${cat.url} alt=${cat.name} />
               <div class="overlay">${cat.name}</div>
             </div>
@@ -42,9 +50,6 @@ class SearchResult {
           .join("");
 
     this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
-      $item.addEventListener("click", () => {
-        this.onClick(this.data[index]);
-      });
       const $overlay = $item.querySelector(".overlay");
       $item.addEventListener("mouseenter", () => {
         $overlay.style.visibility = "visible";
