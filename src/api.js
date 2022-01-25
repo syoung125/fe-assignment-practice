@@ -23,4 +23,7 @@ const api = {
   fetchRandomCats: async () => {
     return await request(`${API_ENDPOINT}/api/cats/random50`);
   },
+  fetchCat: async (id) => {
+    return await request(`${API_ENDPOINT}/api/cats/${id}`);
+  },
 };
