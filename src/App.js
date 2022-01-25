@@ -7,17 +7,11 @@ class App {
   constructor($target) {
     console.log($target);
     this.$target = $target;
+    this.onSearch = this.onSearch.bind(this);
 
     this.searchInput = new SearchInput({
       $target,
-      onSearch: async (keyword) => {
-        this.setLoading(true);
-        try {
-          const res = await api.fetchCats(keyword);
-          this.setState(res.data);
-        } catch (error) {}
-        this.setLoading(false);
-      },
+      onSearch: this.onSearch,
       onRandom: async () => {
         this.setLoading(true);
         try {
@@ -26,6 +20,11 @@ class App {
         } catch (error) {}
         this.setLoading(false);
       },
+    });
+
+    this.recentKeywords = new RecentKeywords({
+      $target,
+      onSearch: this.onSearch,
     });
 
     this.searchResult = new SearchResult({
@@ -57,5 +56,16 @@ class App {
 
   setLoading(isLoading) {
     this.searchResult.setLoading(isLoading);
+  }
+
+  async onSearch(keyword) {
+    this.setLoading(true);
+    addRecentKeyword(keyword);
+    this.recentKeywords.render();
+    try {
+      const res = await api.fetchCats(keyword);
+      this.setState(res.data);
+    } catch (error) {}
+    this.setLoading(false);
   }
 }

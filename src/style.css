@@ -45,15 +45,29 @@ body * {
   width: 100%;
 }
 
-.searchInputWrapper {
+.SearchInputWrapper {
   display: flex;
   flex-direction: row;
   white-space: nowrap;
 }
-.SearchInput {
+.SearchInputWrapper .searchInput {
   width: 100%;
   font-size: 40px;
   padding: 10px 15px;
+}
+
+.RecentKeywords {
+  margin: 4px 0;
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+.RecentKeywords ul > li {
+  width: fit-content;
+}
+.RecentKeywords ul > li:hover {
+  cursor: pointer;
+  color: gray;
 }
 
 .ImageInfo {
