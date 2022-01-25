@@ -2,6 +2,7 @@ class SearchResult {
   $searchResult = null;
   data = null;
   onClick = null;
+  isLoading = false;
 
   constructor({ $target, initialData, onClick }) {
     this.$searchResult = document.createElement("div");
@@ -19,16 +20,25 @@ class SearchResult {
     this.render();
   }
 
+  setLoading(isLoading) {
+    this.isLoading = isLoading;
+    this.render();
+  }
+
   render() {
-    this.$searchResult.innerHTML = this.data
-      .map(
-        (cat) => `
+    this.$searchResult.innerHTML = this.isLoading
+      ? "<p>로딩중입니다...</p>"
+      : this.data.length === 0
+      ? "<p>검색결과가 없습니다.</p>"
+      : this.data
+          .map(
+            (cat) => `
             <div class="item">
               <img src=${cat.url} alt=${cat.name} />
             </div>
           `
-      )
-      .join("");
+          )
+          .join("");
 
     this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
       $item.addEventListener("click", () => {

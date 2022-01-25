@@ -11,7 +11,13 @@ class App {
     this.searchInput = new SearchInput({
       $target,
       onSearch: (keyword) => {
-        api.fetchCats(keyword).then(({ data }) => this.setState(data));
+        this.setLoading(true);
+        api
+          .fetchCats(keyword)
+          .then(({ data }) => this.setState(data))
+          .finally(() => {
+            this.setLoading(false);
+          });
       },
     });
 
@@ -39,5 +45,9 @@ class App {
     console.log(this);
     this.data = nextData;
     this.searchResult.setState(nextData);
+  }
+
+  setLoading(isLoading) {
+    this.searchResult.setLoading(isLoading);
   }
 }
