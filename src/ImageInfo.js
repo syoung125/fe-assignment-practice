@@ -10,12 +10,30 @@ class ImageInfo {
 
     this.data = data;
 
+    this.$imageInfo.addEventListener("click", () => {
+      this.onClose();
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        this.onClose();
+      }
+    });
+
     this.render();
   }
 
   setState(nextData) {
     this.data = nextData;
     this.render();
+  }
+
+  onClose() {
+    if (!this.data.visible) {
+      return;
+    }
+    this.setState({
+      visible: false,
+    });
   }
 
   render() {
@@ -35,6 +53,11 @@ class ImageInfo {
             </div>
           </div>`;
       this.$imageInfo.style.display = "block";
+
+      const $closeBtn = document.querySelector(".close");
+      $closeBtn.addEventListener("click", () => {
+        this.onClose();
+      });
     } else {
       this.$imageInfo.style.display = "none";
     }
