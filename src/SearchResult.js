@@ -1,3 +1,5 @@
+import SessionStorage from "./utils/sessionStorage.js";
+
 export default class SearchResult {
   $searchResult = null;
   data = null;
@@ -11,6 +13,11 @@ export default class SearchResult {
 
     this.data = initialData;
     this.onClick = onClick;
+
+    const lastResult = SessionStorage.getLastResult();
+    if (lastResult != null) {
+      this.setState({ ...this.data, result: lastResult });
+    }
 
     this.$searchResult.addEventListener("click", (e) => {
       const $item = e.path.find((v) => v.className === "item");

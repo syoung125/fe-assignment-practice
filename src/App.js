@@ -1,3 +1,4 @@
+import SessionStorage from "./utils/sessionStorage.js";
 import { addRecentKeyword } from "./utils/localStorage.js";
 import { getColorTheme } from "./utils/theme.js";
 
@@ -38,6 +39,7 @@ export default class App {
         try {
           const res = await api.fetchRandomCats();
           this.setState({ ...this.data, result: res.data });
+          SessionStorage.setLastResult(res.data);
         } catch (error) {}
         this.setState({ ...this.data, isLoading: false });
       },
@@ -86,6 +88,7 @@ export default class App {
     try {
       const res = await api.fetchCats(keyword);
       this.setState({ ...this.data, result: res.data });
+      SessionStorage.setLastResult(res.data);
     } catch (error) {}
     this.setState({ ...this.data, isLoading: false });
   }
