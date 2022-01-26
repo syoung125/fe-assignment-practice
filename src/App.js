@@ -9,6 +9,14 @@ class App {
     this.$target = $target;
     this.onSearch = this.onSearch.bind(this);
 
+    window.onload = function () {
+      document.documentElement.setAttribute("color-theme", getColorTheme());
+    };
+
+    this.themeSwitcher = new ThemeSwitcher({
+      $target,
+    });
+
     this.searchInput = new SearchInput({
       $target,
       onSearch: this.onSearch,

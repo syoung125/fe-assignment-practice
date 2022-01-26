@@ -1,3 +1,26 @@
+:root {
+  --background: white;
+  --text: #000;
+}
+
+/* dark mode 처리*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000;
+    --text: white;
+  }
+}
+
+:root[color-theme="light"] {
+  --background: white;
+  --text: #000;
+}
+
+:root[color-theme="dark"] {
+  --background: #000;
+  --text: white;
+}
+
 @font-face {
   font-family: "Goyang";
   src: url("fonts/Goyang.ttf") format("truetype");
@@ -7,10 +30,12 @@
 
 html {
   box-sizing: border-box;
+  background-color: var(--background);
 }
 
 body * {
   font-family: Goyang;
+  color: var(--text);
 }
 
 *,
@@ -23,6 +48,17 @@ body * {
   margin: 1.5em auto;
   max-width: 1200px;
   column-gap: 1.5em;
+}
+
+.ThemeSwitcher {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ThemeSwitcher input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
 }
 
 .SearchResult {
@@ -75,12 +111,17 @@ body * {
   width: 100%;
   font-size: 40px;
   padding: 10px 15px;
+  background-color: transparent;
+}
+.SearchInputWrapper button {
+  background-color: gray;
+  color: white;
 }
 
 .RecentKeywords {
   margin: 4px 0;
   padding: 8px;
-  border: 1px solid black;
+  border: 1px solid var(--text);
   border-radius: 8px;
 }
 .RecentKeywords ul > li {
@@ -131,15 +172,6 @@ body * {
 .ImageInfo .content-wrapper img {
   width: 100%;
 }
-
-/* dark mode 처리
-  @media (prefers-color-scheme: dark) {
-    body {
-      background-color: #000;
-      color: white;
-    }
-  }
-  */
 
 @media (max-width: 992px) {
   .SearchResult {
