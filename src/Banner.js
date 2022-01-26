@@ -44,12 +44,12 @@ export default class Banner {
             : this.items.reduce(
                 (acc, { url, name }, index) =>
                   acc +
-                  `
-        <li ${index === this.currentIdx ? "class=show" : ""}>
-          <img src=${url} alt=${name}/>
-          <p>${name}</p>
-        </li>
-        `,
+                  `<li ${
+                    index === this.currentIdx ? "class='show fadeIn'" : ""
+                  }>
+                    <img src=${url} alt=${name}/>
+                    <p>${name}</p>
+                  </li>`,
                 ""
               )
         }
