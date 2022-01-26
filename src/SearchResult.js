@@ -37,14 +37,14 @@ class SearchResult {
           .map(
             (cat) => `
             <div class="item" id="item_${cat.id}">
-              <img src=${cat.url} alt=${cat.name} />
+              <img class="lazy" data-src=${cat.url} alt=${cat.name} />
               <div class="overlay">${cat.name}</div>
             </div>
           `
           )
           .join("");
 
-    this.$searchResult.querySelectorAll(".item").forEach(($item, index) => {
+    this.$searchResult.querySelectorAll(".item").forEach(($item) => {
       const $overlay = $item.querySelector(".overlay");
       $item.addEventListener("mouseenter", () => {
         $overlay.style.visibility = "visible";
@@ -52,6 +52,21 @@ class SearchResult {
       $item.addEventListener("mouseleave", () => {
         $overlay.style.visibility = "hidden";
       });
+    });
+
+    const imageObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          var image = entry.target;
+          image.src = image.dataset.src;
+          image.classList.remove("lazy");
+          imageObserver.unobserve(image);
+        }
+      });
+    });
+
+    this.$searchResult.querySelectorAll(".item > img").forEach(($item) => {
+      imageObserver.observe($item);
     });
   }
 }

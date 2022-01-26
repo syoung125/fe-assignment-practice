@@ -73,11 +73,14 @@ body * {
   height: 100%;
   object-fit: cover;
 }
+.SearchResult img.lazy {
+  height: 300px;
+}
 
 .SearchResult .item {
   position: relative;
   background-color: #eee;
-  display: inline-block;
+  display: inline-flex;
   margin: 0 0 1em;
   width: 100%;
 }
