@@ -2,17 +2,21 @@ import SessionStorage from "./utils/sessionStorage.js";
 
 export default class SearchResult {
   $searchResult = null;
-  data = null;
+  data = null; // isLoading, result
   onClick = null;
   isLoading = false;
 
   constructor({ $target, initialData, onClick }) {
+    this.render = this.render.bind(this);
+
     this.$searchResult = document.createElement("div");
     this.$searchResult.className = "SearchResult";
     $target.appendChild(this.$searchResult);
 
     this.data = initialData;
     this.onClick = onClick;
+
+    this.initPagenation();
 
     const lastResult = SessionStorage.getLastResult();
     if (lastResult != null) {
@@ -27,10 +31,45 @@ export default class SearchResult {
       }
     });
 
+    // scroll pagenation
+    window.addEventListener("scroll", (e) => {
+      if (!this.hasMore) {
+        return;
+      }
+      const { scrollHeight, scrollTop, clientHeight } =
+        document.documentElement;
+      if (scrollTop + clientHeight > scrollHeight - 5) {
+        this.loadMore();
+      }
+    });
+
     this.render();
   }
 
+  initPagenation() {
+    this.offset = 0;
+    this.limit = 12;
+    this.hasMore = true;
+  }
+
+  loadMore() {
+    console.log("loadMore");
+    if (this.offset > this.data.result.length) {
+      this.hasMore = false;
+      return;
+    }
+    this.offset += this.limit;
+    this.render();
+  }
+
+  getLoadedData() {
+    return this.data.result.slice(0, this.offset + this.limit);
+  }
+
   setState(nextData) {
+    if (this.data.result !== nextData.result) {
+      this.initPagenation();
+    }
     this.data = nextData;
     this.render();
   }
@@ -40,7 +79,7 @@ export default class SearchResult {
       ? "<p>로딩중입니다...</p>"
       : this.data.result.length === 0
       ? "<p>검색결과가 없습니다.</p>"
-      : this.data.result
+      : this.getLoadedData()
           .map(
             (cat) => `
             <div class="item" id="item_${cat.id}">

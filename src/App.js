@@ -82,9 +82,10 @@ export default class App {
   }
 
   async onSearch(keyword) {
-    this.setState({ ...this.data, isLoading: true });
     LocalStorage.addRecentKeyword(keyword);
     this.recentKeywords.render();
+
+    this.setState({ ...this.data, isLoading: true });
     try {
       const res = await api.fetchCats(keyword);
       this.setState({ ...this.data, result: res.data });
