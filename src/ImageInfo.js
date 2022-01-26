@@ -36,30 +36,44 @@ export default class ImageInfo {
     });
   }
 
+  fadeIn() {
+    this.$imageInfo.classList.remove("fadeOut");
+    this.$imageInfo.classList.add("fadeIn");
+    this.$imageInfo.style.display = "block";
+  }
+
+  fadeOut() {
+    this.$imageInfo.classList.remove("fadeIn");
+    this.$imageInfo.classList.add("fadeOut");
+    setTimeout(() => {
+      this.$imageInfo.style.display = "none";
+    }, 1000);
+  }
+
   render() {
     if (this.data.visible) {
       const { name, url, temperament, origin } = this.data.image;
 
       this.$imageInfo.innerHTML = `
-          <article class="content-wrapper">
-            <div class="title">
-              <h1>${name}</h1>
-              <button class="close">x</button>
-            </div>
-            <img src="${url}" alt="${name}"/>        
-            <ul class="description">
-              <li>성격: ${temperament}</li>
-              <li>태생: ${origin}</li>
-            </ul>
-          </article>`;
-      this.$imageInfo.style.display = "block";
+      <article class="content-wrapper">
+        <div class="title">
+          <h1>${name}</h1>
+          <button class="close">x</button>
+        </div>
+        <img src="${url}" alt="${name}"/>        
+        <ul class="description">
+          <li>성격: ${temperament}</li>
+          <li>태생: ${origin}</li>
+        </ul>
+      </article>`;
+      this.fadeIn();
 
       const $closeBtn = document.querySelector(".close");
       $closeBtn.addEventListener("click", () => {
         this.onClose();
       });
     } else {
-      this.$imageInfo.style.display = "none";
+      this.fadeOut();
     }
   }
 }
