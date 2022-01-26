@@ -6,6 +6,7 @@ import { api } from "./api.js";
 import ThemeSwitcher from "./ThemeSwitcher.js";
 import SearchInput from "./SearchInput.js";
 import RecentKeywords from "./RecentKeywords.js";
+import Banner from "./Banner.js";
 import SearchResult from "./SearchResult.js";
 import ImageInfo from "./ImageInfo.js";
 
@@ -45,6 +46,10 @@ export default class App {
     this.recentKeywords = new RecentKeywords({
       $target,
       onSearch: this.onSearch,
+    });
+
+    this.banner = new Banner({
+      $target,
     });
 
     this.searchResult = new SearchResult({

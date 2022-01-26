@@ -135,6 +135,55 @@ body * {
   color: gray;
 }
 
+.Banner {
+  position: relative;
+
+  width: 80%;
+  height: 200px;
+  margin: 12px auto;
+}
+.Banner ul,
+.Banner ul > li {
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+}
+.Banner ul > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  display: none;
+}
+.Banner ul > li.show {
+  display: flex;
+}
+.Banner ul > li img {
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.Banner ul > li p {
+  font-size: 2rem;
+}
+.Banner .prevBtn,
+.Banner .nextBtn {
+  position: absolute;
+  top: 30%;
+  font-size: 4rem;
+}
+.Banner .prevBtn {
+  left: 0;
+}
+.Banner .nextBtn {
+  right: 0;
+}
+.Banner .prevBtn:hover,
+.Banner .nextBtn:hover {
+  opacity: 0.6;
+}
+
 .ImageInfo {
   position: fixed;
   left: 0;
@@ -187,6 +236,12 @@ body * {
   }
   .ImageInfo .content-wrapper {
     width: 100vw;
+  }
+  .Banner {
+    width: 100%;
+  }
+  .Banner ul > li p {
+    display: none;
   }
 }
 @media (max-width: 576px) {
