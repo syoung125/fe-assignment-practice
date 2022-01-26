@@ -216,13 +216,16 @@ body * {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: #fff;
+  background-color: var(--background);
   border: 1px solid #eee;
   border-radius: 5px;
 }
 
 .ImageInfo .content-wrapper img {
   width: 100%;
+}
+.ImageInfo .content-wrapper ul {
+  list-style: none;
 }
 
 @media (max-width: 992px) {
