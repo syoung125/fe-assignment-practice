@@ -28,17 +28,12 @@ class SearchResult {
     this.render();
   }
 
-  setLoading(isLoading) {
-    this.isLoading = isLoading;
-    this.render();
-  }
-
   render() {
-    this.$searchResult.innerHTML = this.isLoading
+    this.$searchResult.innerHTML = this.data.isLoading
       ? "<p>로딩중입니다...</p>"
-      : this.data.length === 0
+      : this.data.result.length === 0
       ? "<p>검색결과가 없습니다.</p>"
-      : this.data
+      : this.data.result
           .map(
             (cat) => `
             <div class="item" id="item_${cat.id}">

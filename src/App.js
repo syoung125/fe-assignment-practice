@@ -2,7 +2,10 @@ console.log("app is running!");
 
 class App {
   $target = null;
-  data = [];
+  data = {
+    result: [],
+    isLoading: false,
+  };
 
   constructor($target) {
     console.log($target);
@@ -21,12 +24,12 @@ class App {
       $target,
       onSearch: this.onSearch,
       onRandom: async () => {
-        this.setLoading(true);
+        this.setState({ ...this.data, isLoading: true });
         try {
           const res = await api.fetchRandomCats();
-          this.setState(res.data);
+          this.setState({ ...this.data, result: res.data });
         } catch (error) {}
-        this.setLoading(false);
+        this.setState({ ...this.data, isLoading: false });
       },
     });
 
@@ -62,18 +65,14 @@ class App {
     this.searchResult.setState(nextData);
   }
 
-  setLoading(isLoading) {
-    this.searchResult.setLoading(isLoading);
-  }
-
   async onSearch(keyword) {
-    this.setLoading(true);
+    this.setState({ ...this.data, isLoading: true });
     addRecentKeyword(keyword);
     this.recentKeywords.render();
     try {
       const res = await api.fetchCats(keyword);
-      this.setState(res.data);
+      this.setState({ ...this.data, result: res.data });
     } catch (error) {}
-    this.setLoading(false);
+    this.setState({ ...this.data, isLoading: false });
   }
 }
