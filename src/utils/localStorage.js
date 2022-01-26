@@ -1,15 +1,33 @@
-const RECENT_KEYWORDS = "recentKeywords";
+const localStorageKeys = {
+  recentKeywords: "recentKeywords",
+  prefersColorScheme: "prefersColorScheme",
+};
 
-export function getRecentKeywords() {
-  const recentKeywords = localStorage.getItem(RECENT_KEYWORDS);
-  return recentKeywords ? JSON.parse(recentKeywords) : [];
-}
-
-export function addRecentKeyword(keyword) {
-  let recentKeywords = getRecentKeywords();
-  if (recentKeywords.includes(keyword)) {
-    recentKeywords = recentKeywords.filter((v) => v !== keyword);
+export default class LocalStorage {
+  static getRecentKeywords() {
+    const recentKeywords = localStorage.getItem(
+      localStorageKeys.recentKeywords
+    );
+    return recentKeywords ? JSON.parse(recentKeywords) : [];
   }
-  recentKeywords = [keyword, ...recentKeywords].slice(0, 5);
-  localStorage.setItem(RECENT_KEYWORDS, JSON.stringify(recentKeywords));
+
+  static addRecentKeyword(keyword) {
+    let recentKeywords = this.getRecentKeywords();
+    if (recentKeywords.includes(keyword)) {
+      recentKeywords = recentKeywords.filter((v) => v !== keyword);
+    }
+    recentKeywords = [keyword, ...recentKeywords].slice(0, 5);
+    localStorage.setItem(
+      localStorageKeys.recentKeywords,
+      JSON.stringify(recentKeywords)
+    );
+  }
+
+  static getPrefersColorScheme() {
+    return localStorage.getItem(localStorageKeys.prefersColorScheme);
+  }
+
+  static setPrefersColorScheme(theme) {
+    localStorage.setItem(localStorageKeys.prefersColorScheme, theme);
+  }
 }

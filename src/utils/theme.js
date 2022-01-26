@@ -1,4 +1,4 @@
-const PREFERS_COLOR_SCHEME = "prefersColorScheme";
+import LocalStorage from "./localStorage.js";
 
 function isColorThemeValue(value) {
   return ["dark", "light"].includes(value);
@@ -10,7 +10,7 @@ export function getColorTheme() {
     return docColorTheme;
   }
 
-  const customColorTheme = localStorage.getItem(PREFERS_COLOR_SCHEME);
+  const customColorTheme = LocalStorage.getPrefersColorScheme();
   if (isColorThemeValue(customColorTheme)) {
     return customColorTheme;
   }
@@ -26,6 +26,6 @@ export function getColorTheme() {
 
 export function setColorTheme(value) {
   const nextTheme = value === "dark" ? "dark" : "light";
-  localStorage.setItem(PREFERS_COLOR_SCHEME, nextTheme);
+  LocalStorage.setPrefersColorScheme(nextTheme);
   document.documentElement.setAttribute("color-theme", nextTheme);
 }

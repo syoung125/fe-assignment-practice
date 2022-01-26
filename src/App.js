@@ -1,5 +1,5 @@
 import SessionStorage from "./utils/sessionStorage.js";
-import { addRecentKeyword } from "./utils/localStorage.js";
+import LocalStorage from "./utils/localStorage.js";
 import { getColorTheme } from "./utils/theme.js";
 
 import { api } from "./api.js";
@@ -83,7 +83,7 @@ export default class App {
 
   async onSearch(keyword) {
     this.setState({ ...this.data, isLoading: true });
-    addRecentKeyword(keyword);
+    LocalStorage.addRecentKeyword(keyword);
     this.recentKeywords.render();
     try {
       const res = await api.fetchCats(keyword);

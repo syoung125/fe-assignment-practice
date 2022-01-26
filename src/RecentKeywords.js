@@ -1,4 +1,4 @@
-import { getRecentKeywords } from "./utils/localStorage.js";
+import LocalStorage from "./utils/localStorage.js";
 
 export default class RecentKeywords {
   data = null;
@@ -25,7 +25,7 @@ export default class RecentKeywords {
     this.$recentKeywords.innerHTML = `
       <small>최근 검색어</small>
       <ul>
-        ${getRecentKeywords().reduce(
+        ${LocalStorage.getRecentKeywords().reduce(
           (acc, keyword) => acc + `<li>${keyword}</li>`,
           ""
         )}
