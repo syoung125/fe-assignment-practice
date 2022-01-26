@@ -16,7 +16,7 @@ const request = async (url) => {
   }
 };
 
-const api = {
+export const api = {
   fetchCats: async (keyword) => {
     return await request(`${API_ENDPOINT}/api/cats/search?q=${keyword}`);
   },

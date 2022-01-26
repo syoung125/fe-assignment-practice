@@ -1,6 +1,6 @@
 const TEMPLATE = '<input type="text">';
 
-class SearchInput {
+export default class SearchInput {
   constructor({ $target, onSearch, onRandom }) {
     const $searchInputWrapper = document.createElement("div");
     $searchInputWrapper.className = "SearchInputWrapper";

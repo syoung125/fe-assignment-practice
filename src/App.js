@@ -1,6 +1,15 @@
-console.log("app is running!");
+import { addRecentKeyword } from "./utils/localStorage.js";
+import { getColorTheme } from "./utils/theme.js";
 
-class App {
+import { api } from "./api.js";
+
+import ThemeSwitcher from "./ThemeSwitcher.js";
+import SearchInput from "./SearchInput.js";
+import RecentKeywords from "./RecentKeywords.js";
+import SearchResult from "./SearchResult.js";
+import ImageInfo from "./ImageInfo.js";
+
+export default class App {
   $target = null;
   data = {
     result: [],

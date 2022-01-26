@@ -4,7 +4,7 @@ function isColorThemeValue(value) {
   return ["dark", "light"].includes(value);
 }
 
-function getColorTheme() {
+export function getColorTheme() {
   const docColorTheme = document.documentElement.getAttribute("color-theme");
   if (isColorThemeValue(docColorTheme)) {
     return docColorTheme;
@@ -24,7 +24,7 @@ function getColorTheme() {
   return osColorTheme;
 }
 
-function setColorTheme(value) {
+export function setColorTheme(value) {
   const nextTheme = value === "dark" ? "dark" : "light";
   localStorage.setItem(PREFERS_COLOR_SCHEME, nextTheme);
   document.documentElement.setAttribute("color-theme", nextTheme);

@@ -1,4 +1,4 @@
-class ImageInfo {
+export default class ImageInfo {
   $imageInfo = null;
   data = null;
 

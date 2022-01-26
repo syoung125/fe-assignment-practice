@@ -1,4 +1,6 @@
-class RecentKeywords {
+import { getRecentKeywords } from "./utils/localStorage.js";
+
+export default class RecentKeywords {
   data = null;
   onSearch = null;
 

@@ -1,4 +1,4 @@
-const validator = require("../utils/validator");
+import validator from "../utils/validator";
 
 describe("validator.js", () => {
   describe("isNumber(a: any)", () => {

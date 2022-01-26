@@ -1,4 +1,6 @@
-class ThemeSwitcher {
+import { getColorTheme, setColorTheme } from "./utils/theme.js";
+
+export default class ThemeSwitcher {
   constructor({ $target }) {
     const $wrapper = document.createElement("div");
     $wrapper.className = "ThemeSwitcher";
