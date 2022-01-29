@@ -1,0 +1,348 @@
+:root {
+  --background: white;
+  --text: #000;
+}
+
+/* dark mode 처리*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000;
+    --text: white;
+  }
+}
+
+:root[color-theme="light"] {
+  --background: white;
+  --text: #000;
+}
+
+:root[color-theme="dark"] {
+  --background: #000;
+  --text: white;
+}
+
+@font-face {
+  font-family: "Goyang";
+  src: url("fonts/Goyang.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  box-sizing: border-box;
+  background-color: var(--background);
+}
+
+body * {
+  font-family: Goyang;
+  color: var(--text);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+#App {
+  margin: 1.5em auto;
+  max-width: 1200px;
+  column-gap: 1.5em;
+}
+
+.ThemeSwitcher {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ThemeSwitcher input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+.SearchResult {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
+  grid-gap: 10px;
+}
+
+.SearchResult img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.SearchResult img.lazy {
+  height: 300px;
+}
+
+.SearchResult .item {
+  position: relative;
+  background-color: #eee;
+  display: inline-flex;
+  margin: 0 0 1em;
+  width: 100%;
+}
+.SearchResult .item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+
+  visibility: hidden;
+}
+
+.SearchInputWrapper {
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+}
+.SearchInputWrapper .searchInput {
+  width: 100%;
+  font-size: 40px;
+  padding: 10px 15px;
+  background-color: transparent;
+}
+.SearchInputWrapper button {
+  background-color: gray;
+  color: white;
+}
+
+.RecentKeywords {
+  margin: 4px 0;
+  padding: 8px;
+  border: 1px solid var(--text);
+  border-radius: 8px;
+}
+.RecentKeywords ul > li {
+  width: fit-content;
+}
+.RecentKeywords ul > li:hover {
+  cursor: pointer;
+  color: gray;
+}
+
+.Banner {
+  position: relative;
+
+  width: 80%;
+  height: 200px;
+  margin: 12px auto;
+}
+.Banner ul,
+.Banner ul > li {
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+}
+.Banner ul > li {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  display: none;
+}
+.Banner ul > li.show {
+  display: flex;
+}
+.Banner ul > li img {
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.Banner ul > li p {
+  font-size: 2rem;
+}
+.Banner .prevBtn,
+.Banner .nextBtn {
+  position: absolute;
+  top: 30%;
+  font-size: 4rem;
+}
+.Banner .prevBtn {
+  left: 0;
+}
+.Banner .nextBtn {
+  right: 0;
+}
+.Banner .prevBtn:hover,
+.Banner .nextBtn:hover {
+  opacity: 0.6;
+}
+
+.ImageInfo {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.ImageInfo .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ImageInfo .title h1 {
+  margin: 0;
+}
+.ImageInfo .title .close {
+  border: 0;
+  background-color: transparent;
+}
+
+.ImageInfo .title,
+.ImageInfo .description {
+  padding: 5px;
+}
+
+.ImageInfo .content-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background);
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+.ImageInfo .content-wrapper img {
+  width: 100%;
+}
+.ImageInfo .content-wrapper ul {
+  list-style: none;
+}
+
+.fadeIn {
+  animation: fadein 0.5s;
+  -moz-animation: fadein 0.5s; /* Firefox */
+  -webkit-animation: fadein 0.5s; /* Safari and Chrome */
+  -o-animation: fadein 0.5s; /* Opera */
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeOut {
+  animation: fadeout 1s;
+  -moz-animation: fadeout 1s; /* Firefox */
+  -webkit-animation: fadeout 1s; /* Safari and Chrome */
+  -o-animation: fadeout 1s; /* Opera */
+  animation-fill-mode: forwards;
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadeout {
+  /* Firefox */
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeout {
+  /* Safari and Chrome */
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeout {
+  /* Opera */
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .SearchResult {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
+  }
+}
+@media (max-width: 768px) {
+  .SearchResult {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+  .ImageInfo .content-wrapper {
+    width: 100vw;
+  }
+  .Banner {
+    width: 100%;
+  }
+  .Banner ul > li p {
+    display: none;
+  }
+}
+@media (max-width: 576px) {
+  .SearchResult {
+    grid-template-columns: repeat(1, minmax(250px, 1fr));
+  }
+}
