@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import SearchInput from "./components/SearchInput";
+import RecentKeywords from "./components/RecentKeywords";
 import SearchResult from "./components/SearchResult";
 import ImageInfo from "./components/ImageInfo";
 
@@ -63,6 +64,7 @@ function App() {
         <SearchInput onSearch={onSearch} />
         <button onClick={onRandom}>랜덤 고양이</button>
       </div>
+      <RecentKeywords onSearch={onSearch} />
       <SearchResult
         initialData={data}
         loading={loading}
