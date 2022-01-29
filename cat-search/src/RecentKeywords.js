@@ -26,7 +26,7 @@ export default class RecentKeywords {
       <small>최근 검색어</small>
       <ul>
         ${LocalStorage.getRecentKeywords().reduce(
-          (acc, keyword) => acc + `<li>${keyword}</li>`,
+          (acc, keyword) => acc + `<li tabindex='0'>${keyword}</li>`,
           ""
         )}
       </ul>
@@ -36,6 +36,14 @@ export default class RecentKeywords {
       .querySelector(".RecentKeywords ul")
       .addEventListener("click", (e) => {
         this.onSearch(e.target.textContent);
+      });
+
+    document
+      .querySelector(".RecentKeywords ul")
+      .addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          this.onSearch(e.target.textContent);
+        }
       });
   }
 }
