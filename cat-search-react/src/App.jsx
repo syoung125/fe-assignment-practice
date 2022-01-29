@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import SearchInput from "./components/SearchInput";
 import SearchResult from "./components/SearchResult";
+import ImageInfo from "./components/ImageInfo";
 
 import { getColorTheme } from "./utils/theme";
 import LocalStorage from "./utils/localStorage";
@@ -66,6 +67,11 @@ function App() {
         initialData={data}
         loading={loading}
         onItemClick={onResultItemClick}
+      />
+      <ImageInfo
+        open={detailData}
+        onClose={() => setDetailData(null)}
+        {...detailData}
       />
     </div>
   );
