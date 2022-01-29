@@ -2,7 +2,7 @@ import SessionStorage from "./utils/sessionStorage.js";
 import LocalStorage from "./utils/localStorage.js";
 import { getColorTheme } from "./utils/theme.js";
 
-import { api } from "./api.js";
+import CatService from "./api/cat/index.js";
 
 import ThemeSwitcher from "./ThemeSwitcher.js";
 import SearchInput from "./SearchInput.js";
@@ -37,7 +37,7 @@ export default class App {
       onRandom: async () => {
         this.setState({ ...this.data, isLoading: true });
         try {
-          const res = await api.fetchRandomCats();
+          const res = await CatService.randomCatLIst();
           this.setState({ ...this.data, result: res.data });
           SessionStorage.setLastResult(res.data);
         } catch (error) {}
@@ -58,7 +58,7 @@ export default class App {
       $target,
       initialData: this.data,
       onClick: async (id) => {
-        const res = await api.fetchCat(id);
+        const res = await CatService.read(id);
         this.imageInfo.setState({
           visible: true,
           image: res.data,
@@ -87,7 +87,7 @@ export default class App {
 
     this.setState({ ...this.data, isLoading: true });
     try {
-      const res = await api.fetchCats(keyword);
+      const res = await CatService.catList(keyword);
       this.setState({ ...this.data, result: res.data });
       SessionStorage.setLastResult(res.data);
     } catch (error) {}

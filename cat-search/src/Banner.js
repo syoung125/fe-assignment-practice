@@ -1,4 +1,4 @@
-import { api } from "./api.js";
+import CatService from "./api/cat/index.js";
 
 const MAX_LENGTH = 5;
 
@@ -19,7 +19,7 @@ export default class Banner {
   }
 
   async getRandomCats() {
-    const res = await api.fetchRandomCats();
+    const res = await CatService.randomCatLIst();
     this.items = res.data.slice(0, MAX_LENGTH);
     this.render();
   }
