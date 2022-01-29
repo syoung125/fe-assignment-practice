@@ -1,8 +1,23 @@
-import React from "react";
+import { useEffect } from "react";
+
+import { getColorTheme } from "./utils/theme";
+
+import ThemeSwitcher from "./components/ThemeSwitcher";
+
 import "./style.css";
 
-const App = () => {
-  return <div id="App"></div>;
-};
+function App() {
+  useEffect(() => {
+    window.addEventListener("load", () => {
+      document.documentElement.setAttribute("color-theme", getColorTheme());
+    });
+  }, []);
+
+  return (
+    <div id="App">
+      <ThemeSwitcher defaultChecked={getColorTheme() === "dark"} />
+    </div>
+  );
+}
 
 export default App;
