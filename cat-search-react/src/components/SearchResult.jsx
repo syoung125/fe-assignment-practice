@@ -41,7 +41,9 @@ function SearchResult({ initialData = [], loading, onItemClick }) {
       {!loading && !data.length && <p>검색결과가 없습니다.</p>}
       {!loading &&
         data.length > 0 &&
-        data.map((cat) => <SearchResultItem key={cat.id} {...cat} />)}
+        data.map((cat, index) => (
+          <SearchResultItem key={`${cat.id}_${index}`} {...cat} />
+        ))}
     </div>
   );
 }
