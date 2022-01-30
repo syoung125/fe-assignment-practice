@@ -1,10 +1,12 @@
 import { baseConfig } from "../requestConfig.js";
 
-export const catListConfig = (keyword) => {
-  return baseConfig().get(`/cats/search?q=${keyword}`);
+export const listConfig = (keyword) => {
+  return baseConfig().get(`/cats/search`, {
+    params: { q: keyword },
+  });
 };
 
-export const randomCatListConfig = () => {
+export const randomListConfig = () => {
   return baseConfig().get(`/cats/random50`);
 };
 

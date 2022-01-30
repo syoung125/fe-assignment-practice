@@ -1,14 +1,14 @@
 import axios from "axios";
 
-import { catListConfig, randomCatListConfig, readConfig } from "./config.js";
+import { listConfig, randomListConfig, readConfig } from "./config.js";
 
-const catList = async (keyword) => {
-  const res = await axios(catListConfig(keyword));
+const list = async (keyword) => {
+  const res = await axios(listConfig(keyword));
   return res.data;
 };
 
-const randomCatLIst = async () => {
-  const res = await axios(randomCatListConfig());
+const randomList = async () => {
+  const res = await axios(randomListConfig());
   return res.data;
 };
 
@@ -18,8 +18,8 @@ const read = async (id) => {
 };
 
 const CatService = {
-  catList,
-  randomCatLIst,
+  list,
+  randomList,
   read,
 };
 
