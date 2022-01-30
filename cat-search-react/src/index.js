@@ -1,5 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import { QueryClient, QueryClientProvider } from "react-query";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import App from "./App";
+import ErrorBoundary from "./components/ErrorBoundary";
+
+const queryClient = new QueryClient();
+
+ReactDOM.render(
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </ErrorBoundary>,
+  document.getElementById("root")
+);

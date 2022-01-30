@@ -11,52 +11,76 @@ import { getColorTheme } from "./utils/theme";
 import LocalStorage from "./utils/localStorage";
 import SessionStorage from "./utils/sessionStorage";
 
-import CatService from "./service/api/cat";
+import { useCatList } from "./hooks/api/useCatList";
+import { useRandomCatList } from "./hooks/api/useRandomCatList";
+import { useCatDetail } from "./hooks/api/useCatDetail";
 
 import "./style.css";
 
 function App() {
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(null);
-  const [selectedData, setSelectedData] = useState(null);
+  const [mode, setMode] = useState("search"); // "search" | "random"
+  const [keyword, setKeyword] = useState("");
+
+  const placeholderData = SessionStorage.getLastResult();
+  const {
+    data: searchData,
+    isLoading: isSearchDataLoading,
+    isFetched: isSearchDataFetched,
+  } = useCatList(keyword);
+  const {
+    data: randomData,
+    isLoading: isRandomDataLoading,
+    isFetched: isRandomDataFetched,
+    refetch,
+  } = useRandomCatList("randomCats", {
+    onSuccess: (res) => {
+      SessionStorage.setLastResult(res.data);
+    },
+    enabled: false,
+  });
+
+  const [selectedCatId, setSelectedCatId] = useState(null);
   const [openImageInfo, setImageInfoOpen] = useState(false);
 
+  const { data: catData } = useCatDetail(selectedCatId);
+
   useEffect(() => {
-    window.addEventListener("load", () => {
+    const initColorTheme = () => {
       document.documentElement.setAttribute("color-theme", getColorTheme());
-    });
+    };
+
+    window.addEventListener("load", initColorTheme);
+
+    return () => window.removeEventListener("load", initColorTheme);
   }, []);
 
-  const onSearch = async (keyword) => {
-    LocalStorage.addRecentKeyword(keyword);
-    setLoading(true);
-    try {
-      const res = await CatService.catList(keyword);
-      setData(res.data);
-      SessionStorage.setLastResult(res.data);
-    } catch (error) {
-      alert(`에러가 발생했습니다. ${error}`);
-    } finally {
-      setLoading(false);
+  const getData = () => {
+    if (!isSearchDataFetched && !isRandomDataFetched && !!placeholderData) {
+      return placeholderData;
     }
+    return mode === "random" ? randomData?.data : searchData?.data;
+  };
+
+  const getLoading = () => {
+    if (!isSearchDataFetched && !isRandomDataFetched && !!placeholderData) {
+      return false;
+    }
+    return mode === "random" ? isRandomDataLoading : isSearchDataLoading;
+  };
+
+  const onSearch = async (keyword) => {
+    setMode("search");
+    setKeyword(keyword);
+    LocalStorage.addRecentKeyword(keyword);
   };
 
   const onRandom = async () => {
-    setLoading(true);
-    try {
-      const res = await CatService.randomCatLIst();
-      setData(res.data);
-      SessionStorage.setLastResult(res.data);
-    } catch (error) {
-      alert(`에러가 발생했습니다. ${error}`);
-    } finally {
-      setLoading(false);
-    }
+    setMode("random");
+    refetch();
   };
 
   const onResultItemClick = async (id) => {
-    const res = await CatService.read(id);
-    setSelectedData(res.data);
+    setSelectedCatId(id);
     setImageInfoOpen(true);
   };
 
@@ -74,14 +98,14 @@ function App() {
       <RecentKeywords onSearch={onSearch} />
       <Banner />
       <SearchResult
-        initialData={data}
-        loading={loading}
+        data={getData()}
+        loading={getLoading()}
         onItemClick={onResultItemClick}
       />
       <ImageInfo
         open={openImageInfo}
         onClose={closeImageInfo}
-        catInfo={selectedData}
+        catInfo={catData?.data}
       />
     </div>
   );

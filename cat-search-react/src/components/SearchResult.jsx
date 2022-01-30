@@ -1,28 +1,6 @@
-import { useEffect, useState } from "react";
-
-import SessionStorage from "../utils/sessionStorage";
 import SearchResultItem from "./SearchResultItem";
 
-function SearchResult({ initialData = [], loading, onItemClick }) {
-  const [data, setData] = useState(initialData);
-
-  useEffect(() => {
-    if (initialData !== null) {
-      return;
-    }
-
-    const lastResult = SessionStorage.getLastResult();
-    if (lastResult != null) {
-      setData(lastResult);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (initialData !== null) {
-      setData(initialData);
-    }
-  }, [initialData]);
-
+function SearchResult({ data, loading, onItemClick }) {
   const onClick = (e) => {
     const $item = e.target.closest(".item");
     if ($item) {
@@ -37,13 +15,15 @@ function SearchResult({ initialData = [], loading, onItemClick }) {
 
   return (
     <div className="SearchResult" onClick={onClick}>
-      {loading && <p>로딩중입니다...</p>}
-      {!loading && !data.length && <p>검색결과가 없습니다.</p>}
-      {!loading &&
-        data.length > 0 &&
+      {loading ? (
+        <p>로딩중입니다...</p>
+      ) : !data?.length ? (
+        <p>검색결과가 없습니다.</p>
+      ) : (
         data.map((cat, index) => (
           <SearchResultItem key={`${cat.id}_${index}`} {...cat} />
-        ))}
+        ))
+      )}
     </div>
   );
 }

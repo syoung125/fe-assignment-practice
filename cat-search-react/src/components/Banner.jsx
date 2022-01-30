@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-import CatService from "../service/api/cat";
+import { useRandomCatList } from "../hooks/api/useRandomCatList";
 
 const MAX_LENGTH = 5;
 
 function Banner() {
+  const { data, isLoading } = useRandomCatList("randomCatsBanner");
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const res = await CatService.randomCatLIst();
-      setItems(res.data.slice(0, MAX_LENGTH));
-    })();
-  }, []);
 
   const onPrev = () => {
     setCurrentIdx(currentIdx === 0 ? MAX_LENGTH - 1 : currentIdx - 1);
@@ -26,10 +19,10 @@ function Banner() {
   return (
     <div className="Banner">
       <ul>
-        {items.length === 0 ? (
+        {isLoading ? (
           <p>로딩중...</p>
         ) : (
-          items.map(({ id, url, name }, index) => (
+          data.data.slice(0, MAX_LENGTH).map(({ id, url, name }, index) => (
             <li key={id} className={index === currentIdx ? "show fadeIn" : ""}>
               <img src={url} alt={name} />
               <p>{name}</p>
