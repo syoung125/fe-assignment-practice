@@ -50,6 +50,13 @@ body * {
   column-gap: 1.5em;
 }
 
+.ErrorBoundary {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+}
+
 .ThemeSwitcher {
   display: flex;
   flex-direction: row;
