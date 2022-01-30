@@ -29,8 +29,8 @@ function Banner() {
         {items.length === 0 ? (
           <p>로딩중...</p>
         ) : (
-          items.map(({ url, name }, index) => (
-            <li className={index === currentIdx ? "show fadeIn" : ""}>
+          items.map(({ id, url, name }, index) => (
+            <li key={id} className={index === currentIdx ? "show fadeIn" : ""}>
               <img src={url} alt={name} />
               <p>{name}</p>
             </li>

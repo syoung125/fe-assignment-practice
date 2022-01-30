@@ -17,7 +17,9 @@ function RecentKeywords({ onSearch }) {
       <small>최근 검색어</small>
       <ul onClick={onClick} onKeyDown={onKeyDown}>
         {LocalStorage.getRecentKeywords().map((keyword) => (
-          <li tabIndex={0}>{keyword}</li>
+          <li key={keyword} tabIndex={0}>
+            {keyword}
+          </li>
         ))}
       </ul>
     </section>
