@@ -37,10 +37,10 @@ function Banner() {
           ))
         )}
       </ul>
-      <span class="prevBtn" onClick={onPrev}>
+      <span className="prevBtn" onClick={onPrev}>
         &lt;
       </span>
-      <span class="nextBtn" onClick={onNext}>
+      <span className="nextBtn" onClick={onNext}>
         &gt;
       </span>
     </div>

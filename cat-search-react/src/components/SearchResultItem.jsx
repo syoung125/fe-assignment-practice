@@ -22,13 +22,13 @@ function SearchResultItem({ id, url, name }) {
 
   return (
     <div
-      class="item"
+      className="item"
       data-id={id}
       onMouseEnter={() => setShowName(true)}
       onMouseLeave={() => setShowName(false)}
     >
-      <img ref={imgRef} class="lazy" data-src={url} alt={name} />
-      {showName && <div class="overlay">{name}</div>}
+      <img ref={imgRef} className="lazy" data-src={url} alt={name} />
+      {showName && <div className="overlay">{name}</div>}
     </div>
   );
 }

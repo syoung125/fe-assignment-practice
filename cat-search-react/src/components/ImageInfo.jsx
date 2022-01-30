@@ -33,15 +33,15 @@ function ImageInfo({ open, onClose, catInfo }) {
       onKeyDown={onKeyDown}
       style={{ visibility: visible ? "visible" : "hidden" }}
     >
-      <article class="content-wrapper" onClick={(e) => e.stopPropagation()}>
-        <div class="title">
+      <article className="content-wrapper" onClick={(e) => e.stopPropagation()}>
+        <div className="title">
           <h1>{name}</h1>
-          <button class="close" onClick={onClose}>
+          <button className="close" onClick={onClose}>
             x
           </button>
         </div>
         <img src={url} alt={name} />
-        <ul class="description">
+        <ul className="description">
           <li>성격: {temperament}</li>
           <li>태생: {origin}</li>
         </ul>
