@@ -14,11 +14,17 @@ function ImageInfo({ open, onClose, catInfo }) {
     return () => timeoutId != null && clearTimeout(timeoutId);
   }, [open]);
 
-  const onKeyDown = (e) => {
-    if (e.key === "Escape") {
-      onClose();
-    }
-  };
+  useEffect(() => {
+    const onKeydown = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", onKeydown);
+
+    return () => window.removeEventListener("keydown", onKeydown);
+  }, []);
 
   if (!catInfo) {
     return null;
@@ -30,7 +36,6 @@ function ImageInfo({ open, onClose, catInfo }) {
     <div
       className={`ImageInfo ${open ? "fadeIn" : "fadeOut"}`}
       onClick={onClose}
-      onKeyDown={onKeyDown}
       style={{ visibility: visible ? "visible" : "hidden" }}
     >
       <article className="content-wrapper" onClick={(e) => e.stopPropagation()}>
