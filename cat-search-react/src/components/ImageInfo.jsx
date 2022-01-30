@@ -1,17 +1,39 @@
-function ImageInfo({ open, onClose, name, url, temperament, origin }) {
+import { useEffect, useState } from "react";
+
+function ImageInfo({ open, onClose, catInfo }) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    let timeoutId;
+    if (open) {
+      setVisible(true);
+    } else {
+      timeoutId = setTimeout(() => setVisible(false), 150);
+    }
+
+    return () => timeoutId != null && clearTimeout(timeoutId);
+  }, [open]);
+
   const onKeyDown = (e) => {
     if (e.key === "Escape") {
       onClose();
     }
   };
 
-  if (!open) {
+  if (!catInfo) {
     return null;
   }
 
+  const { name, url, temperament, origin } = catInfo;
+
   return (
-    <div className="ImageInfo" onClick={onClose} onKeyDown={onKeyDown}>
-      <article class="content-wrapper">
+    <div
+      className={`ImageInfo ${open ? "fadeIn" : "fadeOut"}`}
+      onClick={onClose}
+      onKeyDown={onKeyDown}
+      style={{ visibility: visible ? "visible" : "hidden" }}
+    >
+      <article class="content-wrapper" onClick={(e) => e.stopPropagation()}>
         <div class="title">
           <h1>{name}</h1>
           <button class="close" onClick={onClose}>

@@ -18,7 +18,8 @@ import "./style.css";
 function App() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
-  const [detailData, setDetailData] = useState(null);
+  const [selectedData, setSelectedData] = useState(null);
+  const [openImageInfo, setImageInfoOpen] = useState(false);
 
   useEffect(() => {
     window.addEventListener("load", () => {
@@ -55,7 +56,12 @@ function App() {
 
   const onResultItemClick = async (id) => {
     const res = await CatService.read(id);
-    setDetailData(res.data);
+    setSelectedData(res.data);
+    setImageInfoOpen(true);
+  };
+
+  const closeImageInfo = () => {
+    setImageInfoOpen(false);
   };
 
   return (
@@ -73,9 +79,9 @@ function App() {
         onItemClick={onResultItemClick}
       />
       <ImageInfo
-        open={detailData}
-        onClose={() => setDetailData(null)}
-        {...detailData}
+        open={openImageInfo}
+        onClose={closeImageInfo}
+        catInfo={selectedData}
       />
     </div>
   );
