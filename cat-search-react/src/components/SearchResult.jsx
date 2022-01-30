@@ -4,7 +4,7 @@ import SessionStorage from "../utils/sessionStorage";
 import SearchResultItem from "./SearchResultItem";
 
 function SearchResult({ initialData = [], loading, onItemClick }) {
-  const [data, setDate] = useState(initialData);
+  const [data, setData] = useState(initialData);
 
   useEffect(() => {
     if (initialData !== null) {
@@ -13,13 +13,13 @@ function SearchResult({ initialData = [], loading, onItemClick }) {
 
     const lastResult = SessionStorage.getLastResult();
     if (lastResult != null) {
-      setDate(lastResult);
+      setData(lastResult);
     }
   }, []);
 
   useEffect(() => {
     if (initialData !== null) {
-      setDate(initialData);
+      setData(initialData);
     }
   }, [initialData]);
 
